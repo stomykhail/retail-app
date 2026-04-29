@@ -1,6 +1,10 @@
 import awswrangler as wr
 import pandas as pd
+import boto3
 from datetime import timedelta
+
+# Configure default AWS session region so awswrangler knows where Athena lives
+boto3.setup_default_session(region_name="us-east-1")
 
 DATABASE = "retail_analytics_dev"
 S3_STAGING_DIR = "s3://retail-legacy-dev-athena-results-mykhailo-2026/"
