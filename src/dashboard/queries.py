@@ -11,7 +11,32 @@ S3_STAGING_DIR = "s3://retail-legacy-dev-athena-results-mykhailo-2026/"
 
 def run_athena_query(sql: str) -> pd.DataFrame:
     """Executes a SQL query in AWS Athena and returns a Pandas DataFrame."""
-    return wr.athena.read_sql_query(sql=sql, database=DATABASE, s3_output=S3_STAGING_DIR)
+    df = wr.athena.read_sql_query(sql=sql, database=DATABASE, s3_output=S3_STAGING_DIR)
+    
+    # Athena automatically converts all column names to lowercase.
+    # We map them back to the exact casing expected by the Streamlit app.
+    casing_map = {
+        "date": "DATE",
+        "current_sales": "CURRENT_SALES",
+        "prev_sales": "PREV_SALES",
+        "prev_yoy_sales": "PREV_YOY_SALES",
+        "wow_pct_increase": "WOW_PCT_INCREASE",
+        "yoy_pct_increase": "YOY_PCT_INCREASE",
+        "prev_week_sales": "PREV_WEEK_SALES",
+        "promo_sales": "PROMO_SALES",
+        "prev_year_sales": "PREV_YEAR_SALES",
+        "period_wow_pct": "Period_WOW_PCT",
+        "period_yoy_pct": "Period_YOY_PCT",
+        "promo_penetration_pct": "Promo_Penetration_PCT",
+        "seg": "SEG",
+        "actual": "ACTUAL",
+        "promo": "PROMO",
+        "product_category": "PRODUCT_CATEGORY",
+        "opstudy_label": "OPSTUDY_LABEL",
+        "pln_label": "PLN_LABEL",
+        "bu": "BU"
+    }
+    return df.rename(columns=casing_map)
 
 def get_filters() -> tuple:
     sql = f"""
