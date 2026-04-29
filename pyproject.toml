@@ -1,0 +1,25 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "retail-sales-project"
+version = "0.1.0"
+description = "Medallion architecture ETL pipeline and Streamlit dashboard"
+dependencies = [
+    "polars",
+    "boto3",
+]
+
+[project.optional-dependencies]
+dashboard = [
+    "pandas",
+    "duckdb",
+    "streamlit",
+    "plotly"
+]
+dev = [
+    "pytest",
+    "apache-airflow",
+    "apache-airflow-providers-amazon"
+]

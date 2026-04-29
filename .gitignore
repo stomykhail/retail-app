@@ -1,0 +1,41 @@
+# Environments
+venv/
+env/
+.env
+**/.env
+
+# Python
+__pycache__/
+*.py[cod]
+
+
+# Data files
+*.csv
+*.parquet
+
+# Airflow Logs
+airflow/logs/
+
+# Python Build Artifacts
+build/
+dist/
+*.egg-info/
+*.zip
+
+# Terraform
+.terraform/
+*.tfstate
+*.tfstate.*
+
+# OS generated files
+.DS_Store
+
+# Code Runner generated files
+tempCodeRunnerFile*
+
+# Cursor
+.cursor/
+.cursorrules
+
+# Build files
+Makefile
